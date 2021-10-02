@@ -1,0 +1,40 @@
+@media(max-width:780px)
+{
+    #table1
+    {
+        color:darkblue;
+        background-color:orange;
+        border:none;
+    }
+}
+/*  Media query works with Reactstrap!!! install React-Bootstrap and import the 
+    CDNs as done in this project              */
+
+
+.hiddenText{
+    color:orange;
+}
+.bluetext{
+    color:darkblue;
+}
+.text-muted{
+    color:darkblue;
+}
+.footer{
+    color:darkblue;
+    position:absolute;
+    left:-70px;
+    bottom: 0px;
+    width: 110%;
+    height: 40px;
+    background-color:orange;
+}
+
+@media (max-width: 576px){
+    .footer{
+        position:absolute;
+        left: -50px;
+        width: 110%;
+    }
+
+}
