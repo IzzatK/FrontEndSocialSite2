@@ -6,6 +6,8 @@ const _ = require("lodash");
 const postsById = (req, res, next, id) => {
   Post.findById(id)
     .populate("postedBy", "_id name")
+    .populate("comments", "text created")
+    .populate("comments.postedBy", "_id name")
     .exec((err, post) => {
       if (err || !post) {
         return res.status(400).json({
@@ -20,6 +22,8 @@ const postsById = (req, res, next, id) => {
 const getPosts = (req, res) => {
   const posts = Post.find()
     .populate("postedBy", "_id name")
+    .populate("comments", "text created")
+    .populate("comments.postedBy", "_id name")
     .select("__id title body created likes ")
     .sort({ created: -1 })
     .then((posts) => {
@@ -31,6 +35,8 @@ const getPosts = (req, res) => {
 const postsByUser = (req, res) => {
   Post.find({ postedBy: req.profile._id })
     .populate("postedBy", "_id name")
+    .populate("comments", "text created")
+    .populate("comments.postedBy", "_id name")
     .select("__id title body created likes ")
     .sort("_created")
     .exec((err, posts) => {
@@ -189,6 +195,45 @@ const unlike = (req, res) => {
   });
 };
 
+const comment = (req, res) => {
+  let comment = req.body.comment;
+  comment.postedBy = req.body.userId;
+
+  Post.findByIdAndUpdate(
+    req.body.postId,
+    { $push: { comments: req.body.userId } },
+    { new: true }
+  )
+    .populate("comments.postedBy", "_id name")
+    .populate("postedBy", "_id name")
+    .exec((err, result) => {
+      if (err) {
+        return res.status(400).json;
+      } else {
+        res.json(result);
+      }
+    });
+};
+
+const uncomment = (req, res) => {
+  let comment = req.body.comment;
+
+  Post.findByIdAndUpdate(
+    req.body.postId,
+    { $pull: { comments: { _id: comment._id } } },
+    { new: true }
+  )
+    .populate("comments.postedBy", "_id name")
+    .populate("postedBy", "_id name")
+    .exec((err, result) => {
+      if (err) {
+        return res.status(400).json;
+      } else {
+        res.json(result);
+      }
+    });
+};
+
 module.exports = {
   getPosts,
   createPost,
@@ -201,4 +246,6 @@ module.exports = {
   singlePost,
   like,
   unlike,
+  comment,
+  uncomment,
 };
