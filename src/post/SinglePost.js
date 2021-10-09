@@ -5,6 +5,7 @@ import LikeButton from "../imgs/likebutton2.png";
 import DislikeButton from "../imgs/dislikebutton2.png";
 import { Link, Redirect } from "react-router-dom";
 import { isAuthenticated } from "../auth/index";
+import Comment from "./Comment";
 //conditional Boolean rendering is shown in in this Componenent and many others in the project
 class SinglePost extends Component {
   state = {
@@ -13,6 +14,7 @@ class SinglePost extends Component {
     redirectToSignin: false,
     like: false,
     likes: 0,
+    comments: [],
   };
 
   checkLike = (likes) => {
@@ -34,6 +36,10 @@ class SinglePost extends Component {
         });
       }
     });
+  };
+
+  updateComments = (comments) => {
+    this.setState({ comments });
   };
 
   likeToggle = () => {
@@ -142,7 +148,7 @@ class SinglePost extends Component {
   };
 
   render() {
-    const { post, redirectToHome, redirectToSignin } = this.state;
+    const { post, redirectToHome, redirectToSignin, comments } = this.state;
     if (this.state.redirectToHome) {
       return <Redirect to={`/`} />;
     }
@@ -159,6 +165,11 @@ class SinglePost extends Component {
         ) : (
           this.renderPost(post)
         )}
+        <Comment
+          postId={post._id}
+          comments={comments}
+          updateComments={this.updateComments}
+        />
       </div>
     );
   }

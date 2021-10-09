@@ -35,8 +35,6 @@ const getPosts = (req, res) => {
 const postsByUser = (req, res) => {
   Post.find({ postedBy: req.profile._id })
     .populate("postedBy", "_id name")
-    .populate("comments", "text created")
-    .populate("comments.postedBy", "_id name")
     .select("__id title body created likes ")
     .sort("_created")
     .exec((err, posts) => {
@@ -201,7 +199,7 @@ const comment = (req, res) => {
 
   Post.findByIdAndUpdate(
     req.body.postId,
-    { $push: { comments: req.body.userId } },
+    { $push: { comments: comment } },
     { new: true }
   )
     .populate("comments.postedBy", "_id name")
