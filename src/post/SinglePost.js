@@ -122,23 +122,23 @@ class SinglePost extends Component {
             on {new Date(post.created).toDateString()}
           </p>
           <div className="d-inline-block">
-            {isAuthenticated().user && (
-              //isAuthenticated().user._id === post.postedBy._id &&
-              <>
-                <Link
-                  to={`/post/edit/${post._id}`}
-                  className="btn btn-raised btn-warning btn-sm mr-5"
-                >
-                  Update Post
-                </Link>
-                <button
-                  onClick={this.deleteConfirmed}
-                  className="btn btn-raised btn-warning"
-                >
-                  Delete Post
-                </button>
-              </>
-            )}
+            {isAuthenticated().user &&
+              isAuthenticated().user._id === post.postedBy._id && (
+                <>
+                  <Link
+                    to={`/post/edit/${post._id}`}
+                    className="btn btn-raised btn-warning btn-sm mr-5"
+                  >
+                    Update Post
+                  </Link>
+                  <button
+                    onClick={this.deleteConfirmed}
+                    className="btn btn-raised btn-warning"
+                  >
+                    Delete Post
+                  </button>
+                </>
+              )}
           </div>
         </div>
       </div>
