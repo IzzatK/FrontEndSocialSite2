@@ -19,15 +19,10 @@ const postsById = (req, res, next, id) => {
     });
 };
 
-const getPosts = (req, res) => {
-  const posts = Post.find()
-    .populate("postedBy", "_id name")
-    .populate("comments", "text created")
-    .populate("comments.postedBy", "_id name")
-    .select("__id title body created likes ")
-    .sort({ created: -1 })
+const getPosts = async (req, res) => {
+  posts = await Post.find()
     .then((posts) => {
-      res.json(posts);
+      res.status(200).json(posts);
     })
     .catch((err) => console.log(err));
 };
