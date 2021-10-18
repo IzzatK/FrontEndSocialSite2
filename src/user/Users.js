@@ -56,7 +56,7 @@ class Users extends Component {
   render() {
     const { users } = this.state;
     return (
-      <div className="d-flex offset-xs-1 col-xs-1">
+      <div className="d-flex offset-xs-1 col-xs-1 mt-3">
         <h2 className="mt-5 mb-5">Users</h2>
 
         {this.renderUsers(users)}

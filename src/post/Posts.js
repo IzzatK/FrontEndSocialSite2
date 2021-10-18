@@ -30,7 +30,10 @@ class Posts extends Component {
   //wrap the users.map in a return with {} surrounding, or with () surrounding and no return statement
   renderPosts = (posts) => {
     return (
-      <div className="row">
+      <div
+        className="row mb-5"
+        style={{ position: "relative", bottom: "50px" }}
+      >
         {posts.map((post, i) => {
           const posterId = post.postedBy ? `/user/${post.postedBy._id}` : "";
           const posterName = post.postedBy ? post.postedBy.name : " Unknown";
@@ -72,7 +75,10 @@ class Posts extends Component {
     const { posts } = this.state;
     return (
       <div className="container">
-        <h2 className="mt-5 mb-5">
+        <h2
+          className="mt-5 mb-5"
+          style={{ position: "relative", bottom: "20px" }}
+        >
           {!posts.length ? "Loading..." : "Recent Posts"}
         </h2>
 
