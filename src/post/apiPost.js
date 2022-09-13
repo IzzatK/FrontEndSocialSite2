@@ -53,7 +53,6 @@ export const remove = (postId, token) => {
     method: "DELETE",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   })

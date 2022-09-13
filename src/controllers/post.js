@@ -82,10 +82,11 @@ const isPoster = (req, res, next) => {
   //create a method to get userId, then compare its variable to post.postedBy._id as above
   //to create a boolean isPoster as shown above
   // let isPoster = req.profile._id == post.postedBy._id;
-  console.log("req.post", req.post);
-  console.log("req.auth", req.auth);
-  console.log("req.post.posteedBy._id:", req.post.postedBy._id);
-  console.log("req.auth._id", req.auth._id);
+  // console.log("req.post", req.post);
+  // console.log('req post id and userid', req.post.postedBy._id, userId)
+  // console.log("req.auth", req.auth);
+  // console.log("req.post.posteedBy._id:", req.post.postedBy._id);
+  // console.log("req.auth._id", req.auth._id);
 
   if (!isPoster) {
     return res.status(403).json({
@@ -104,7 +105,7 @@ const deletePost = (req, res) => {
       });
     }
     res.json({
-      message: "Post deleted successfully!",
+      message: `${post} deleted successfully!`,
     });
   });
 };
